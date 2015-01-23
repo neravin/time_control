@@ -1,0 +1,35 @@
+<%= form_for(@affair) do |f| %>
+
+	<% if @affair.errors.any? %>
+		<div id = "error_explanation">
+			<h2><%= pluralize(@affair.errors.count, "error") %> prohibited this affair from being saved</h2>
+			<ul>
+				<% @affair.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div><!--/error_explanation-->
+	<% end %>
+
+	<div>
+		<div class = "field">
+			<%= collection_select(:affair, :category_id, Category.all, :id, :name, prompt: "chose a category") %>
+		</div><!--/field-->
+		<div class = "field">
+			<%= f.label :name %>
+			<%= f.text_field :name %>
+		</div><!--/field-->
+		<div class = "field">
+			<%= f.label :description %>
+			<%= f.text_field :description %>
+		</div><!--/field-->
+		<div class = "field">
+			<%= f.label :result %>
+			<%= f.text_field :result %>
+		</div><!--/field-->
+		<div class = "field">
+			<%= f.submit %>
+		</div><!--/field-->
+	</div>
+	
+<% end %>
