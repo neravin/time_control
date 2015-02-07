@@ -1,0 +1,14 @@
+@import "palette";
+
+body{
+	// default color
+	background: $cold-blue;
+	color: $cold-light;
+}
+
+form{
+	input[type="submit"]{
+		background: $cold-light;
+		color: $cold-blue;
+	}
+}

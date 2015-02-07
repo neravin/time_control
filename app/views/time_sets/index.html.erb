@@ -1,2 +1,21 @@
-<h1>TimeSets#index</h1>
+<h1>Time Sets</h1>
 
+<div class = "time-set">
+	<%= form_for @time_set, remote: true do |f| %>
+		<div class = "field">
+			<%= collection_select(:time_set, :affair_id, Affair.all, :id, :name, {prompt: "chose a category"}, {:class => "category-select cs-select cs-skin-border"}) %>
+		</div><!--/field-->
+
+		<div class = "field actions">
+			<%= f.submit :class => "buttion", :value => "start" %>
+		</div><!--/field actions-->
+	<% end %>
+</div>
+
+<script>
+  (function() {
+    [].slice.call( document.querySelectorAll( '.time-set select.cs-select' ) ).forEach( function(el) {  
+      new SelectFx(el);
+    } );
+  })();
+</script>

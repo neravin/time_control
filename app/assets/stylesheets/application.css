@@ -12,6 +12,7 @@
  *
  *= require reset
  *= require fonts
+ *= require typography
  *= require_tree .
  *= require_self
  */

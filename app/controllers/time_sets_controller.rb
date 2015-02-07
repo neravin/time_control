@@ -2,6 +2,7 @@ class TimeSetsController < ApplicationController
 	before_action :set_time, only: [:show, :edit, :update, :destroy]
 
   def index
+    @time_set = TimeSet.new
   end
 
   def new

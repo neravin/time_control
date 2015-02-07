@@ -1,9 +1,12 @@
+@import "function";
+
 $height-screen: 1000px;
 
-body{
+.grid-main{
 	margin: 0 auto;
 	width: $height-screen; 
 }
+
 
 h1{
 	font-family: 'roseregular';
