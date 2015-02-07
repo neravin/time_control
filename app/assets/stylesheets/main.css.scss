@@ -1,4 +1,6 @@
 @import "function";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 $height-screen: 1000px;
 
@@ -11,3 +13,27 @@ $height-screen: 1000px;
 h1{
 	font-family: 'roseregular';
 }
+
+#new_time_set{
+	width: 50%;
+	.timer{
+		font-family: 'digital_dreamregular';
+		padding: 1em;
+		border-radius: em(5);
+		margin-bottom: em(10);
+	}
+	.control-panel
+	{
+		button{
+			margin-right: em(7);
+		}
+		button.start{
+
+		}
+		button.cancel{
+			float: right;
+			margin-right: 0;
+		}
+	}
+}
+

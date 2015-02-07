@@ -7,8 +7,26 @@ body{
 }
 
 form{
-	input[type="submit"]{
+	input[type="submit"], button{
 		background: $cold-light;
 		color: $cold-blue;
 	}
+}
+
+#new_time_set{
+	.timer{
+		color: $cold-light;
+		background: $cold-blue-darker1;
+	}
+	.control-panel{
+		button{
+			background: $cold-blue-darker1;
+			color: $cold-light;
+		}
+		button.active{
+			background: $cold-light;
+			color: $cold-blue;
+		}
+	}
+	
 }

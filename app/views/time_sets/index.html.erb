@@ -6,10 +6,26 @@
 			<%= collection_select(:time_set, :affair_id, Affair.all, :id, :name, {prompt: "chose a category"}, {:class => "category-select cs-select cs-skin-border"}) %>
 		</div><!--/field-->
 
-		<div class = "field actions">
-			<%= f.submit :class => "buttion", :value => "start" %>
-		</div><!--/field actions-->
+		<div class = "timer">
+			00:00:00
+		</div><!--/timer-->
+
+		<div class = "control-panel">
+			<button class = "start active">
+				<i class = "fa fa-play"></i>
+			</button><!--/start-->
+			<button class = "pause">
+				<i class = "fa fa-pause"></i>
+			</button><!--/pause-->
+			<button class = "finish">
+				<i class = "fa fa-stop"></i>
+			</button><!--/finish-->
+			<button class = "cancel">
+				cancel
+			</button><!--/button-->
+		</div><!--/control-panel-->
 	<% end %>
+
 </div>
 
 <script>
