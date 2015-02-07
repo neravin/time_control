@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'time_sets/index'
+
   get 'affairs/index'
 
   get 'categories/index'
 
   resources :affairs, only: [:index, :new, :create]
+  resources :time_sets, only: [:index, :new, :create]
+  resources :categories, only: [:index, :new, :create]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

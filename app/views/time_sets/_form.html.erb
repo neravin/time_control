@@ -1,0 +1,13 @@
+<%= form_for @time_set, remote: true do |f| %>
+
+	<div>
+		<div class = "field">
+			<%= collection_select(:time_set, :affair_id, Affair.all, :id, :name, prompt: "chose a category") %>
+		</div><!--/field-->
+		
+		<div class = "field">
+			<%= f.submit %>
+		</div><!--/field-->
+	</div>
+	
+<% end %>
