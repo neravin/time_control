@@ -24,16 +24,17 @@ h1{
 	}
 	.control-panel
 	{
-		button{
+		.button, button, input[type="submit"]{
 			margin-right: em(7);
 		}
-		button.start{
-
+		.control-timer{
+			float: left;
 		}
-		button.cancel{
+		.control-record{
 			float: right;
-			margin-right: 0;
+			.button:last-child ,button:last-child{
+				margin-right: 0;
+			}
 		}
 	}
 }
-

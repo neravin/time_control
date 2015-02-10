@@ -17,11 +17,14 @@ button, .button, input {
   border: 0px solid #000;
 }
 
-input:not([type=submit]):not([type=file]):not([type=radio]){
-  border: em(3) solid #1b967e; 
+.button ,input:not([type=submit]):not([type=file]):not([type=radio]){
   padding: em(10);
-  //background: rgba(255,255,255,0.5);
   margin: 0 0 em(20) 0;
+}
+
+span.button{
+  display: block;
+  float: left;
 }
 
 input[type="submit"]{

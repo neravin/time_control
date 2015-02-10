@@ -49,7 +49,11 @@ class window.StopWatch
 
 		pause: ->
 			# window.console.log 'stopwatch paused, timerId = ' + timerId
+			# window.console.log 'time = ' + seconds
 			clearTimeout(timerId)
+
+		duration: ->
+			seconds
 
 		reset: ->
 			# window.console.log 'stopwatch reset'

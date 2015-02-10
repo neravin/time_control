@@ -7,7 +7,7 @@ body{
 }
 
 form{
-	input[type="submit"], button{
+	input[type="submit"], button, .button{
 		background: $cold-light;
 		color: $cold-blue;
 	}
@@ -19,11 +19,11 @@ form{
 		background: $cold-blue-darker1;
 	}
 	.control-panel{
-		button{
+		input[type="submit"], button, .button{
 			background: $cold-blue-darker1;
 			color: $cold-light;
 		}
-		button.active{
+		.active{
 			background: $cold-light;
 			color: $cold-blue;
 		}

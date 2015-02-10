@@ -1,16 +1,14 @@
-timers = []
-
 ready = ->
+	timers 		= []
 	stopwatch = new StopWatch ".timer"
 
-	#$("button.active").click ->
-	$('body').on 'click', 'button.active', ->
+	$('body').on 'click', '.active', ->
 		blockСlass 		= $(this).attr("class")
 		timeSetForm 	= $(this).closest("#new_time_set")
 		timerBlock 		= timeSetForm.find(".timer")
-		controlPanel 	= $(this).closest(".control-panel")
+		controlPanel 	= $(this).closest(".control-timer")
 		
-		controlPanel.children("button").addClass("active")
+		controlPanel.children(".button").addClass("active")
 		$(this).removeClass("active")
 		
 		if blockСlass.indexOf('start') + 1
@@ -19,6 +17,16 @@ ready = ->
 			stopwatch.pause()
 		if blockСlass.indexOf('reset') + 1
 			stopwatch.reset()
+
+	$("#new_time_set").on("ajax:before", ->
+		# set duration field
+		$(this).find("#time_set_duration").val(stopwatch.duration())
+	)
+	$("#new_time_set").on("ajax:success", (e, data, status, xhr) ->
+		window.console.log data
+		window.console.log "ajax norm"
+	).on "ajax:error", (e, xhr, status, error) ->
+		window.console.log "ajax error"
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
