@@ -16,11 +16,18 @@ h1{
 
 #new_time_set{
 	width: 50%;
-	.timer{
-		font-family: 'digital_dreamregular';
+	.timer, input[type="text"]{
 		padding: 1em;
 		border-radius: em(5);
 		margin-bottom: em(10);
+	}
+	input[type="text"]{
+		width: 100%;
+		max-width: 500px;
+		display: block;
+	}
+	.timer{
+		font-family: 'digital_dreamregular';
 	}
 	.control-panel
 	{

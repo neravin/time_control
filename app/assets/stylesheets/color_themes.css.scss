@@ -14,7 +14,7 @@ form{
 }
 
 #new_time_set{
-	.timer{
+	.timer, input[type="text"]{
 		color: $cold-light;
 		background: $cold-blue-darker1;
 	}
