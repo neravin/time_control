@@ -2,6 +2,8 @@ ready = ->
 	timers 		= []
 	stopwatch = new StopWatch ".timer"
 
+	select_category_ajax("#new_time_set")
+
 	$('body').on 'click', '.active', ->
 		blockСlass 		= $(this).attr("class")
 		timeSetForm 	= $(this).closest("#new_time_set")
@@ -36,18 +38,61 @@ clearTimerForm = (blockTimer, stopwatch) ->
 	# clear field in timer's form
 	blockTimer.find("#time_set_duration").val(0)
 	blockTimer.find("#time_set_local_result").val("")
-	clear_select(blockTimer.find(".category-select"))
+	clear_select(blockTimer.find("#affair-select .cs-select"), 'chose a affair')
 
 	blockTimer.find(".control-timer").children(".button").removeClass("active")
 	blockTimer.find(".start").addClass("active")
 	stopwatch.reset()
 
-clear_select = (element) ->
-  if(element.hasClass("category-select"))
-    element.children(".cs-placeholder").text("Категория")
-    element.children("select.category-select ").val("")
-  if(element.hasClass("services-select"))
-    element.children(".cs-placeholder").text("Тип объявления")
-    element.children("select.services-select ").val("")
+clear_select = (element, defaultText) ->
+  element.children(".cs-placeholder").text(defaultText)
+  element.children("select.cs-select").val("")
   element.children(".cs-options").find("li[class='cs-selected']").removeClass("cs-selected")
 
+select_category_ajax = (form_id) ->
+	categoryCsSelect 	= $("#{form_id} #category-select").children(".cs-select")
+	affairCsSelect		= $("#{form_id} #affair-select").children(".cs-select")
+
+	categoryCsSelect.on 'click', 'li', ->
+		categoryId = $(this).attr("data-value")
+		if $.isNumeric(categoryId)	
+			#window.console.log 'Dzubed and id = ' + categoryId
+			id = parseInt(categoryId)
+			$.ajax({
+				type: 'POST'
+				url: '/select_category'
+				data: {id: categoryId},
+				success: (result) ->
+					affairCsSelect 			= $(form_id).find("#affair-select")
+					affairSelect 				= affairCsSelect.find("#time_set_affair_id")
+					defaultLiAffair 		= '<li data-option="" data-value=""><span>chose a affair</span></li>'
+					defaultOptionAffair = '<option value="">chose a affair</option>'
+
+					# removing old fields in affair's select
+					affairCsSelect.find("li").remove()
+					affairSelect.children("option").remove()
+					affairCsSelect.show(300)
+
+					# adding new fields in affair's select
+					# -- default
+					affairCsSelect.find("ul").append defaultLiAffair
+					affairSelect.append defaultOptionAffair
+					# -- new field
+					for i in [0...result.length]
+						affairCsSelect.find("ul").append "<li data-option='' data-value='#{result[i]["id"]}'><span>#{result[i]["name"]}</span></li>"
+						affairSelect.append "<option value='#{result[i]["id"]}'>#{result[i]["name"]}</option>"
+
+					clear_select( $("#affair-select .cs-select"), 'chose a affair')
+					#window.console.log "result:" + result
+			})
+	# adding click event for new select's field
+	affairCsSelect.on 'click', 'li', ->
+		affairSelect 		 = affairCsSelect.find("#time_set_affair_id")
+		chosenAffairText = $(this).children('span').text()
+		chosenAffairId   = $(this).attr "data-value"
+
+		affairCsSelect.find('li').removeClass 'cs-selected'
+		$(this).addClass "cs-selected"
+		affairCsSelect.children().removeClass('cs-active')
+		affairCsSelect.find('.cs-placeholder').text(chosenAffairText)
+		affairSelect.val(chosenAffairId)

@@ -21,6 +21,13 @@ class TimeSetsController < ApplicationController
   	end
   end
 
+  def select_category
+    respond_to do |format|
+      select_affairs = Affair.where("category_id = #{params[:id]}") 
+      format.json { render :json => select_affairs }
+    end
+  end
+
   private
   	def set_time
   		@time_set = TimeSet.find(params[:id])

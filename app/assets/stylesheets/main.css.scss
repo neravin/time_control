@@ -26,6 +26,9 @@ h1{
 		max-width: 500px;
 		display: block;
 	}
+	#category-select .cs-select{
+		z-index: 102;
+	}
 	.timer{
 		font-family: 'digital_dreamregular';
 	}

@@ -6,8 +6,14 @@ Rails.application.routes.draw do
   get 'categories/index'
 
   resources :affairs, only: [:index, :new, :create]
-  resources :time_sets, only: [:index, :new, :create]
   resources :categories, only: [:index, :new, :create]
+  resources :time_sets, only: [:index, :new, :create] do
+    collection do
+      post 'select_category'
+    end
+  end
+
+  match '/select_category' => 'time_sets#select_category', via: 'post'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
