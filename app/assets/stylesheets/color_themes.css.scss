@@ -1,4 +1,5 @@
 @import "palette";
+@import "function";
 
 body{
 	// default color
@@ -41,5 +42,8 @@ form{
 		.cell:first-child{
 			color: $green;
 		}
+	}
+	.row:last-child .cell{
+		border-top: em(3) solid $green;
 	}
 }

@@ -7,12 +7,20 @@
 		<div class = "cell">duration</div>
 	</div><!--/heading-->
 
+<% time_total = 0 %>
 <% time_sets.each do |time_set| %>
+	<% time_total += time_set.duration %>
 	<div class = "row">
 		<div class = "cell"><%= time_set.affair.name %></div>
 		<div class = "cell"><%= time_set.time_start.strftime("%H:%M:%S") %></div>
 		<div class = "cell"><%= Time.at(time_set.duration).utc.strftime("%H:%M:%S") %></div>
 	</div><!--/row-->
 <% end %>
+
+	<div class = "row">
+		<div class = "cell">Total:</div>
+		<div class = "cell"></div>
+		<div class = "cell"><%= Time.at(time_total).utc.strftime("%H:%M:%S") %></div>
+	</div><!--/row-->
 
 </div><!--/time-sets-->
