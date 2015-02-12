@@ -1,4 +1,4 @@
-<div class = "time-sets table">
+<div id = "<%= time_sets_id %>", class = "time-sets table">
 	<h2><%= h2Text %></h2>
 
 	<div class = "heading">
@@ -12,12 +12,12 @@
 	<% time_total += time_set.duration %>
 	<div class = "row">
 		<div class = "cell"><%= time_set.affair.name %></div>
-		<div class = "cell"><%= time_set.time_start.strftime("%H:%M:%S") %></div>
+		<div class = "cell"><%= time_set.time_start.localtime.strftime("%H:%M:%S") %></div>
 		<div class = "cell"><%= Time.at(time_set.duration).utc.strftime("%H:%M:%S") %></div>
 	</div><!--/row-->
 <% end %>
 
-	<div class = "row">
+	<div class = "total-time-sets row">
 		<div class = "cell">Total:</div>
 		<div class = "cell"></div>
 		<div class = "cell"><%= Time.at(time_total).utc.strftime("%H:%M:%S") %></div>
