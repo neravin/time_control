@@ -30,3 +30,16 @@ form{
 	}
 	
 }
+
+// table style
+.table{
+	background: $cold-blue-darker1;
+	.heading{
+		color: $blue;
+	}
+	.row{
+		.cell:first-child{
+			color: $green;
+		}
+	}
+}

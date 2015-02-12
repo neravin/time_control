@@ -14,8 +14,14 @@ h1{
 	font-family: 'roseregular';
 }
 
-#new_time_set{
+.time-set{
 	width: 50%;
+	float: left;
+	.pseudo{	
+		padding-right: em(10);
+	}
+}
+#new_time_set{
 	.timer, input[type="text"]{
 		padding: 1em;
 		border-radius: em(5);
@@ -47,4 +53,23 @@ h1{
 			}
 		}
 	}
+}
+
+// table style
+.table{
+	h2{
+		margin-left: 0.5em;
+	}
+	.cell{
+		padding: 0.8em;
+	}
+	.row{
+		.cell:first-child{
+
+		}
+	}
+}
+
+.time-sets{
+	width: 50%;
 }

@@ -1,5 +1,6 @@
 class window.StopWatch
 		timerText   = "00:00:00"
+		duration		= 0
 		seconds 		= 0
 		minutes 		= 0
 		hours	 			= 0
@@ -13,6 +14,7 @@ class window.StopWatch
 			# this methods breaks inheritance
 			add = =>
 				seconds++
+				duration++
 				if seconds >= 60
 					seconds = 0
 					minutes++
@@ -53,13 +55,14 @@ class window.StopWatch
 			clearTimeout(timerId)
 
 		duration: ->
-			seconds
+			duration
 
 		reset: ->
 			# window.console.log 'stopwatch reset'
 			clearTimeout(timerId)
-			seconds = 0
-			minutes = 0
-			hours   = 0
+			seconds 	= 0
+			minutes 	= 0
+			hours   	= 0
+			duration 	= 0
 			timerText = "00:00:00"
 			$(@timerDisplay).text(timerText)

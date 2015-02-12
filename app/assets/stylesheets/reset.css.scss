@@ -46,3 +46,34 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	/*display: inline-block;*/
+}
+
+
+// div table
+.table{
+	display: table;
+}
+.title{
+	display: table-caption;
+}
+.heading{
+	display: table-row;
+}
+.row{
+	display: table-row;
+}
+.cell{
+	display: table-cell;
+}

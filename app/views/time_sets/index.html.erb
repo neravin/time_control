@@ -1,42 +1,44 @@
 <h1>Time Sets</h1>
 
-<div class = "time-set">
-	<%= form_for @time_set, remote: true do |f| %>
-		<div id = "category-select", class="field">
-      <%= collection_select(:category, :category_id, Category.all, :id, :name, 
-        {:prompt => "chose a category"}, {:class => "cs-select cs-skin-border"}) %>
-    </div><!--/field-->
-		<div id = "affair-select", class = "field">
-			<%= collection_select(:time_set, :affair_id, Affair.all, :id, :name, {prompt: "chose a affair"}, {:class => "cs-select cs-skin-border"}) %>
-		</div><!--/field-->
+<div class = "time-set clearfix">
+	<div class = "pseudo">
+		<%= form_for @time_set, remote: true do |f| %>
+			<div id = "category-select", class="field">
+	      <%= collection_select(:category, :category_id, Category.all, :id, :name, 
+	        {:prompt => "chose a category"}, {:class => "cs-select cs-skin-border"}) %>
+	    </div><!--/field-->
+			<div id = "affair-select", class = "field">
+				<%= collection_select(:time_set, :affair_id, Affair.all, :id, :name, {prompt: "chose a affair"}, {:class => "cs-select cs-skin-border"}) %>
+			</div><!--/field-->
 
-		<%= f.hidden_field :duration %>
+			<%= f.hidden_field :duration %>
 
-		<div class = "timer">
-			00:00:00
-		</div><!--/timer-->
+			<div class = "timer">
+				00:00:00
+			</div><!--/timer-->
 
-		<%= f.text_field :local_result, :placeholder => "local_result" %>
+			<%= f.text_field :local_result, :placeholder => "local_result" %>
 
-		<div class = "control-panel">
+			<div class = "control-panel">
+				<div class = "control-timer">
+					<span class = "button start active"><i class = "fa fa-play"></i></span>
+					<span class = "button pause"><i class = "fa fa-pause"></i></span>
+					<span class = "button reset"><i class = "fa fa-stop"></i></span>
+				</div><!--/control-timer-->
 
-			<div class = "control-timer">
-				<span class = "button start active"><i class = "fa fa-play"></i></span>
-				<span class = "button pause"><i class = "fa fa-pause"></i></span>
-				<span class = "button reset"><i class = "fa fa-stop"></i></span>
-			</div><!--/control-timer-->
+				<div class = "control-record">
+					<%= f.submit :class => 'complete' %>
+					<button class = "cancel">
+						cancel
+					</button><!--/button-->
+				</div><!--/control-record-->
 
-			<div class = "control-record">
-				<%= f.submit :class => 'complete' %>
-				<button class = "cancel">
-					cancel
-				</button><!--/button-->
-			</div><!--/control-record-->
+			</div><!--/control-panel-->
+		<% end %>
+	</div><!--/pseudo-->
+</div><!--/time-set-->
 
-		</div><!--/control-panel-->
-	<% end %>
-
-</div>
+<%= render "time_sets", {:h2Text => "Today", :time_sets => @time_sets_today} %>
 
 <script>
 	(function() {

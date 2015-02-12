@@ -3,6 +3,7 @@ class TimeSetsController < ApplicationController
 
   def index
     @time_set = TimeSet.new
+    @time_sets_today = TimeSet.today
   end
 
   def new
