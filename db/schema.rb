@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210162651) do
+ActiveRecord::Schema.define(version: 20150212122050) do
 
   create_table "affairs", force: :cascade do |t|
     t.string   "name"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150210162651) do
     t.datetime "updated_at",   null: false
     t.integer  "affair_id"
     t.integer  "duration"
+    t.datetime "time_start"
   end
 
   add_index "time_sets", ["affair_id"], name: "index_time_sets_on_affair_id"

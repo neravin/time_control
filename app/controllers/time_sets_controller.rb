@@ -38,6 +38,7 @@ class TimeSetsController < ApplicationController
   	def time_set_params
   		params.require(:time_set).permit(
   			:id,
+        :time_start,
   			:duration,
     		:local_result,
     		:affair_id)

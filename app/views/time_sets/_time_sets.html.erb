@@ -3,14 +3,14 @@
 
 	<div class = "heading">
 		<div class = "cell">Name</div>
-		<div class = "cell">Start date</div>
+		<div class = "cell">Start time</div>
 		<div class = "cell">duration</div>
 	</div><!--/heading-->
 
 <% time_sets.each do |time_set| %>
 	<div class = "row">
 		<div class = "cell"><%= time_set.affair.name %></div>
-		<div class = "cell"><%= time_set.created_at.strftime("%H:%M:%S") %></div>
+		<div class = "cell"><%= time_set.time_start.strftime("%H:%M:%S") %></div>
 		<div class = "cell"><%= Time.at(time_set.duration).utc.strftime("%H:%M:%S") %></div>
 	</div><!--/row-->
 <% end %>
