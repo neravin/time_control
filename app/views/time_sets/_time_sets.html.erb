@@ -1,3 +1,7 @@
+<%= javascript_tag do %>
+	<!-- window.timeSets = JSON.parse('<%= raw time_sets.to_json(:include => {:affair => {:only => :name}}) %>') -->
+<% end %>
+
 <div id = "<%= time_sets_id %>", class = "time-sets table">
 	<h2><%= h2Text %></h2>
 
@@ -10,6 +14,14 @@
 <% time_total = 0 %>
 <% time_sets.each do |time_set| %>
 	<% time_total += time_set.duration %>
+	<%= javascript_tag do %>
+		timeSet = new TimeSet(
+			"<%= time_set.affair.name %>",
+			"<%= time_set.time_start %>",
+			<%= time_set.duration %>
+		)
+		timeSets.push(timeSet)
+	<% end %>
 	<div class = "row">
 		<div class = "cell"><%= time_set.affair.name %></div>
 		<div class = "cell"><%= time_set.time_start.localtime.strftime("%H:%M:%S") %></div>

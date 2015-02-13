@@ -3,7 +3,7 @@ class TimeSetsController < ApplicationController
 
   def index
     @time_set = TimeSet.new
-    @time_sets_today = TimeSet.today
+    @time_sets_today = TimeSet.today.select([:id, :time_start, :duration, :affair_id]) #.select([:id, :time_start, :duration, :affair_id]).includes(:affair => :name)
   end
 
   def new

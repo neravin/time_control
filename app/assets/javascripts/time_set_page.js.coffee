@@ -1,13 +1,8 @@
-class TimeSet
-	constructor: (@name, @timerText, @durationText) ->
-		# name         - string
-		# timerText    - hh:mm:ss
-		# durationText - hh:mm:ss
+window.timeSets = []
 
 ready = ->
-	timers 		= []
 	stopwatch = new StopWatch ".timer"
-
+	window.console.log timeSets
 	select_category_ajax("#new_time_set")
 
 	$('body').on 'click', '.active', ->
@@ -35,9 +30,9 @@ ready = ->
 	$("#new_time_set").on("ajax:success", (e, data, status, xhr) ->
 		newTimeSetblock = $(this).closest("#new_time_set")
 		affairName      = newTimeSetblock.find("#affair-select .cs-placeholder").text()
-		timerText       = stopwatch.timeStart().toString().split(" ")[4] # hh:mm:ss
-		durationText    = newTimeSetblock.find(".timer").text() # hh:mm:ss
-		timeSetComplete = new TimeSet(affairName ,timerText, durationText)
+		timeSetComplete = new TimeSet(affairName, stopwatch.timeStart(), stopwatch.duration())
+		timeSets.push(timeSetComplete)
+		window.console.log timeSets
 
 		# add new row in time_sets_today table
 		addTimeSetToTable("#time_sets_today", timeSetComplete)
@@ -56,8 +51,8 @@ addTimeSetToTable = (idTimeSets, timeSetNew) ->
 	totalTimeClass = idTimeSets + ' ' + '.total-time-sets'
 	row = "<div class = 'row'>
 					<div class = 'cell'>#{timeSetNew.name}</div>
-					<div class = 'cell'>#{timeSetNew.timerText}</div>
-					<div class = 'cell'>#{timeSetNew.durationText}</div>
+					<div class = 'cell'>#{timeSetNew.timeStartHHMMSS()}</div>
+					<div class = 'cell'>#{timeSetNew.durationHHMMSS()}</div>
 				</div>"
 	$(row).insertBefore(totalTimeClass)
 
