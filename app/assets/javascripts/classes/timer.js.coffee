@@ -1,12 +1,10 @@
 class window.StopWatch
-	timeStart = 0
-	timerText = "00:00:00"
-	duration  = 0
-	seconds   = 0
-	minutes   = 0
-	hours	    = 0
-	timerId	  = 0
-	firstRun  = true
+	timeStart   = 0
+	timerText   = "00:00:00"
+	duration    = 0
+	currentTime = new Time 0, 0, 0
+	timerId	    = 0
+	firstRun    = true
 
 	#Private method. Define it up here so it's in scope
 	timer 	= null
@@ -15,30 +13,17 @@ class window.StopWatch
 		# private methods
 		# this methods breaks inheritance
 		add = =>
-			seconds++
+			currentTime.seconds++
 			duration++
-			if seconds >= 60
-				seconds = 0
-				minutes++
-			if minutes >= 60
-				minutes = 0
-				hours++
+			if currentTime.seconds >= 60
+				currentTime.seconds = 0
+				currentTime.minutes++
+			if currentTime.minutes >= 60
+				currentTime.minutes = 0
+				currentTime.hours++
 
-			# output time
-			if hours < 10
-				timerText = '0' + hours
-			else
-				timerText = hours
-			timerText += ":"
-			if minutes < 10
-				timerText += '0' + minutes
-			else
-				timerText += minutes
-			timerText += ":"
-			if seconds < 10
-				timerText += '0' + seconds
-			else
-				timerText += seconds
+			# string HH:MM:SS
+			timerText = Time.convertTimeToStringHHMMSS(currentTime)
 			$(@timerDisplay).text(timerText)
 
 			timer()
@@ -69,9 +54,7 @@ class window.StopWatch
 	reset: ->
 		# window.console.log 'stopwatch reset'
 		clearTimeout(timerId)
-		seconds   = 0
-		minutes   = 0
-		hours     = 0
+		currentTime.reset()
 		duration  = 0
 		timerText = "00:00:00"
 		firstRun  = true
