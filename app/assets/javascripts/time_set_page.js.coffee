@@ -2,7 +2,10 @@ window.timeSets = []
 
 ready = ->
 	stopwatch = new StopWatch ".timer"
-	# window.console.log timeSets
+	uniqueTimeSet = TimeSet.groupByName(timeSets)
+	window.console.log uniqueTimeSet
+	window.console.log timeSets
+
 	# window.console.log TimeSet.totalDuration()
 	select_category_ajax("#new_time_set")
 

@@ -7,9 +7,29 @@ class window.TimeSet
 		# duration 	 - seconds
 		TimeSet.addDuration(@)
 
+	@compare: (timeSetA, timeSetB) =>
+		if timeSetA.name == timeSetB.name
+			return true
+		else
+			return false
+
 	# class-level function
 	@addDuration: (timeSet) ->
 		totalDuration += timeSet.duration
+
+	@groupByName: (timeSets) ->
+		uniqueTimeSets = []
+		for timeSet in timeSets
+			isUniqueTimeSet = true
+			for uniqueTimeSet in uniqueTimeSets
+				if uniqueTimeSet.name == timeSet.name
+					uniqueTimeSet.duration += timeSet.duration
+					isUniqueTimeSet = false
+			if isUniqueTimeSet
+				delete timeSet.timeStart
+				uniqueTimeSets.push timeSet
+		return uniqueTimeSets
+
 
 	@totalDuration: ->
 		totalDuration
