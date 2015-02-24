@@ -26,6 +26,11 @@ class window.Time
 		seconds = duration % 60
 		time = new Time hours, minutes, seconds
 
+	@convertDateToUTC: (dateIn) ->
+		time = new Time(dateIn.getHours(), dateIn.getMinutes(),  dateIn.getSeconds())
+		utc = (dateIn.getFullYear() + "-" + (dateIn.getMonth()+1) + "-" + dateIn.getDate() + 
+		" " + Time.convertTimeToStringHHMMSS(time) + " UTC")
+
 	# public methods
 	reset: ->
 		@hours   = 0

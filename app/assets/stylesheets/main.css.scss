@@ -63,6 +63,18 @@ h1{
 	.cell{
 		padding: 0.8em;
 	}
+	.filters{
+		.cell{
+			padding: 0;
+			button, span{
+				border-radius: 0;
+				padding: 0.3em;
+			}
+			span{
+				padding: 0.3em 0.8em;
+			}
+		}
+	} 
 	.row{
 		.cell:first-child{
 

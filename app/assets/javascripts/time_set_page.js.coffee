@@ -2,11 +2,9 @@ window.timeSets = []
 
 ready = ->
 	stopwatch = new StopWatch ".timer"
-	uniqueTimeSet = TimeSet.groupByName(timeSets)
-	window.console.log uniqueTimeSet
 	window.console.log timeSets
+	#window.console.log uniqueTimeSet = TimeSet.groupByName(timeSets)
 
-	# window.console.log TimeSet.totalDuration()
 	select_category_ajax("#new_time_set")
 
 	$('body').on 'click', '.active', ->
@@ -34,16 +32,33 @@ ready = ->
 	$("#new_time_set").on("ajax:success", (e, data, status, xhr) ->
 		newTimeSetblock = $(this).closest("#new_time_set")
 		affairName      = newTimeSetblock.find("#affair-select .cs-placeholder").text()
-		timeSetComplete = new TimeSet(affairName, stopwatch.timeStart(), stopwatch.duration())
+		timeSetComplete = new TimeSet(affairName, Time.convertDateToUTC(stopwatch.timeStart()), stopwatch.duration())
 		timeSets.push(timeSetComplete)
-		# window.console.log timeSets
+		window.console.log timeSetComplete
 
 		# add new row in time_sets_today table
 		addTimeSetToTable("#time_sets_today", timeSetComplete)
 		# clear timer form
 		clearTimerForm($(this), stopwatch)
 	).on "ajax:error", (e, xhr, status, error) ->
-		#window.console.log "time_set ajax error"	
+		#window.console.log "time_set ajax error"
+
+
+	# event filters
+	$('.table').on 'click', '.filters button', ->
+		filterEvent = $(this).attr("id")
+		isActive    = ($(this).attr("class") == "active-filter")
+		if(!isActive)
+			if (filterEvent == "group-by-name")
+				newTimeSet = TimeSet.groupByName(timeSets)
+			if (filterEvent == "all-time-sets")
+				newTimeSet = timeSets
+			clearTimeSetInTable("#time_sets_today")
+			addTimeSetsToTable("#time_sets_today", newTimeSet)
+			$("#time_sets_today .filters").find("button").removeClass("active-filter")
+			$(this).addClass("active-filter")
+		return
+
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
@@ -53,16 +68,30 @@ addTimeSetToTable = (idTimeSets, timeSetNew) ->
 	# idTimeSets - type string "#..."
 	# timeSetNew - type TimeSet
 	totalTimeClass = idTimeSets + ' ' + '.total-time-sets'
+	tbody          = $(idTimeSets + " .tbody")
 	totalTime      = Time.convertDurationToTime(TimeSet.totalDuration())
 	stringTime     = Time.convertTimeToStringHHMMSS(totalTime)
-	window.console.log stringTime
+
 	row = "<div class = 'row'>
-					<div class = 'cell'>#{timeSetNew.name}</div>
-					<div class = 'cell'>#{timeSetNew.timeStartHHMMSS()}</div>
-					<div class = 'cell'>#{timeSetNew.durationHHMMSS()}</div>
+					<div class = 'cell'>#{timeSetNew.name}</div>"
+	if "timeStart" of timeSetNew
+		window.console.log timeSetNew.timeStart
+		row +="<div class = 'cell'>#{timeSetNew.timeStartHHMMSS()}</div>"
+	else
+		row +="<div class = 'cell'></div>"
+	row +=	"<div class = 'cell'>#{timeSetNew.durationHHMMSS()}</div>
 				</div>"
-	$(row).insertBefore(totalTimeClass)
+	tbody.append($(row))
 	$(totalTimeClass).children(".cell").last().text(stringTime)
+
+addTimeSetsToTable = (idTimeSets, timeSets) ->
+	for timeSet in timeSets
+		addTimeSetToTable(idTimeSets, timeSet)
+
+clearTimeSetInTable = (idTimeSets) ->
+	tbody = $(idTimeSets + " .tbody")
+	tbody.children(".row").remove()
+
 
 clearTimerForm = (blockTimer, stopwatch) ->
 	# clear field in timer's form
@@ -74,10 +103,12 @@ clearTimerForm = (blockTimer, stopwatch) ->
 	blockTimer.find(".start").addClass("active")
 	stopwatch.reset()
 
+
 clear_select = (element, defaultText) ->
   element.children(".cs-placeholder").text(defaultText)
   element.children("select.cs-select").val("")
   element.children(".cs-options").find("li[class='cs-selected']").removeClass("cs-selected")
+
 
 select_category_ajax = (form_id) ->
 	categoryCsSelect = $("#{form_id} #category-select").children(".cs-select")

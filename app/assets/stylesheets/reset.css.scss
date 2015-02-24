@@ -65,6 +65,12 @@ table {
 .table{
 	display: table;
 }
+.tbody{
+	display: table-row-group;
+}
+.tfoot{
+	display: table-footer-group;
+}
 .title{
 	display: table-caption;
 }

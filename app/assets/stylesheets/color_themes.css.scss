@@ -37,13 +37,27 @@ form{
 	background: $cold-blue-darker1;
 	.heading{
 		color: $blue;
+		.cell{
+			border-bottom: em(3) solid $blue;
+		}
+	}
+	span{
+		background: $blue;
+		color: $cold-blue-darker1;
+	}
+	button{
+		color: $blue;
+		background: none;
+	}
+	button.active-filter{
+		background-image: -moz-linear-gradient(0% 90% 270deg, $cold-blue-darker1, #000, $blue 0%);
 	}
 	.row{
 		.cell:first-child{
 			color: $green;
 		}
 	}
-	.row:last-child .cell{
+	.tfoot .cell{
 		border-top: em(3) solid $green;
 	}
 }

@@ -7,12 +7,6 @@ class window.TimeSet
 		# duration 	 - seconds
 		TimeSet.addDuration(@)
 
-	@compare: (timeSetA, timeSetB) =>
-		if timeSetA.name == timeSetB.name
-			return true
-		else
-			return false
-
 	# class-level function
 	@addDuration: (timeSet) ->
 		totalDuration += timeSet.duration
@@ -26,8 +20,11 @@ class window.TimeSet
 					uniqueTimeSet.duration += timeSet.duration
 					isUniqueTimeSet = false
 			if isUniqueTimeSet
-				delete timeSet.timeStart
-				uniqueTimeSets.push timeSet
+				# delete timeSet.timeStart
+				newTimeSet = ObjectFunctions.jqueryDeepCopy(newTimeSet, timeSet)
+				delete newTimeSet.timeStart
+				delete newTimeSet.timeStartHHMMSS
+				uniqueTimeSets.push newTimeSet
 		return uniqueTimeSets
 
 
@@ -36,7 +33,7 @@ class window.TimeSet
 
 	# properties
 	timeStartHHMMSS: ->
-		@timeStart.toString().split(" ")[4]
+		@timeStart.toString().split(" ")[1]
 
 	durationHHMMSS: ->
 		time = Time.convertDurationToTime(@duration)
