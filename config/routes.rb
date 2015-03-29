@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
+  get 'admin' => 'admin#index'
+
   get 'time_sets/index'
 
   get 'affairs/index'
 
   get 'categories/index'
+
+  get 'users/index'
+
+  controller :session_admin do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
 
   resources :affairs, only: [:index, :new, :create]
   resources :categories, only: [:index, :new, :create]
@@ -12,6 +22,7 @@ Rails.application.routes.draw do
       post 'select_category'
     end
   end
+  resources :users, only: [:index, :new, :create, :update, :edit, :destroy]
 
   match '/select_category' => 'time_sets#select_category', via: 'post'
 

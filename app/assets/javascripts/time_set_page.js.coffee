@@ -18,7 +18,6 @@ ready = ->
 		
 		if blockСlass.indexOf('start') + 1
 			stopwatch.start()
-			# window.console.log stopwatch.timeStart().toISOString()
 			timeSetForm.find("#time_set_time_start").val(stopwatch.timeStart().toISOString())
 		if blockСlass.indexOf('pause') + 1
 			stopwatch.pause()
@@ -32,9 +31,11 @@ ready = ->
 	$("#new_time_set").on("ajax:success", (e, data, status, xhr) ->
 		newTimeSetblock = $(this).closest("#new_time_set")
 		affairName      = newTimeSetblock.find("#affair-select .cs-placeholder").text()
-		timeSetComplete = new TimeSet(affairName, Time.convertDateToUTC(stopwatch.timeStart()), stopwatch.duration())
+		categoryName    = newTimeSetblock.find("#category-select .cs-placeholder").text()
+		timeStart       = Time.convertDateToUTC(stopwatch.timeStart())
+		timeSetComplete = new TimeSet(affairName, timeStart, stopwatch.duration(), categoryName)
 		timeSets.push(timeSetComplete)
-		window.console.log timeSetComplete
+		# window.console.log timeSetComplete
 
 		# add new row in time_sets_today table
 		addTimeSetToTable("#time_sets_today", timeSetComplete)
@@ -48,15 +49,21 @@ ready = ->
 	$('.table').on 'click', '.filters button', ->
 		filterEvent = $(this).attr("id")
 		isActive    = ($(this).attr("class") == "active-filter")
+
 		if(!isActive)
-			if (filterEvent == "group-by-name")
-				newTimeSet = TimeSet.groupByName(timeSets)
-			if (filterEvent == "all-time-sets")
+			if filterEvent == "all-time-sets"
 				newTimeSet = timeSets
-			clearTimeSetInTable("#time_sets_today")
-			addTimeSetsToTable("#time_sets_today", newTimeSet)
+			if filterEvent == "group-by-name"
+				newTimeSet = TimeSet.groupByName(timeSets)
+				# window.console.log newTimeSet
+			if filterEvent == "group-by-category"
+				newTimeSet = TimeSet.groupByCategory(timeSets)
+				# window.console.log newTimeSet
+
 			$("#time_sets_today .filters").find("button").removeClass("active-filter")
 			$(this).addClass("active-filter")
+			clearTimeSetInTable("#time_sets_today")
+			addTimeSetsToTable("#time_sets_today", newTimeSet)
 		return
 
 
@@ -71,11 +78,14 @@ addTimeSetToTable = (idTimeSets, timeSetNew) ->
 	tbody          = $(idTimeSets + " .tbody")
 	totalTime      = Time.convertDurationToTime(TimeSet.totalDuration())
 	stringTime     = Time.convertTimeToStringHHMMSS(totalTime)
+	activeFilter   = $(idTimeSets + " .active-filter").attr("id")
 
-	row = "<div class = 'row'>
-					<div class = 'cell'>#{timeSetNew.name}</div>"
+	row = "<div class = 'row'>"
+	if activeFilter == "group-by-category"
+		row +="<div class = 'cell'>#{timeSetNew.category}</div>"
+	else
+		row +="<div class = 'cell'>#{timeSetNew.name}</div>"
 	if "timeStart" of timeSetNew
-		window.console.log timeSetNew.timeStart
 		row +="<div class = 'cell'>#{timeSetNew.timeStartHHMMSS()}</div>"
 	else
 		row +="<div class = 'cell'></div>"

@@ -1,0 +1,26 @@
+<h1>Listing users</h1>
+
+<% if notice %>
+<p id = "notice"><%= notice %></p>
+<% end %>
+
+<div class = "table">
+	<div class = "thead">
+		<div class = "cell">Name</div>
+		<div class = "cell"></div>
+		<div class = "cell"></div>
+		<div class = "cell"></div>
+	</div><!--/thead-->
+
+	<div class = "tbody">
+		<% @users.each do |user| %>
+			<div class = "row">
+				<div class = "cell"><%= user.name %></div>
+				<div class = "cell"><%= link_to 'show', user %></div>
+				<div class = "cell"><%= link_to 'edit', edit_user_path(user) %></div>
+				<div class = "cell"><%= link_to 'destroy', user, method: :delete, 
+					data: { confirm: 'Are you sure?'} %></div>
+			</div><!--/row-->
+		<% end %>
+	</div><!--/tbody-->
+</div><!--/table-->

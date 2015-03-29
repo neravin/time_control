@@ -7,7 +7,7 @@ class window.StopWatch
 	firstRun    = true
 
 	#Private method. Define it up here so it's in scope
-	timer 	= null
+	timer 	    = null
 
 	constructor: (@timerDisplay) ->
 		# private methods

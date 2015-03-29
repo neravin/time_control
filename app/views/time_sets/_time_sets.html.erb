@@ -5,15 +5,15 @@
 <div id = "<%= time_sets_id %>", class = "time-sets table">
 	<h2><%= h2Text %></h2>
 
-	<div class = "heading">
+	<div class = "thead">
 		<div class = "cell">Name</div>
 		<div class = "cell">Start time</div>
 		<div class = "cell">duration</div>
-	</div><!--/heading-->
+	</div><!--/thead-->
 
 	<div class = "row filters">
 		<div class = "cell">
-			<span>Group by:</span><button class = "active-filter" id = "all-time-sets">All</button><button id = "group-by-name">Name</button><button>Category</button>
+			<span>Group by:</span><button class = "active-filter" id = "all-time-sets">All</button><button id = "group-by-name">Name</button><button id = 'group-by-category'>Category</button>
 		</div><!--/cell-->			
 		<div class = "cell"></div>
 		<div class = "cell"></div>			
@@ -27,7 +27,8 @@
 			timeSet = new TimeSet(
 				"<%= time_set.affair.name %>",
 				"<%= time_set.time_start %>",
-				<%= time_set.duration %>
+				<%= time_set.duration %>,
+				"<%= time_set.affair.category.name %>"
 			)
 			timeSets.push(timeSet)
 		<% end %>
